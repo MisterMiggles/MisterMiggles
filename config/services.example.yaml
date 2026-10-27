@@ -1,0 +1,125 @@
+# MisterMiggles Hub - service catalog
+# Copy to config/services.yaml and edit. The file is re-read on every request,
+# so changes show up on refresh without restarting the container.
+#
+# Per service:
+#   name         Display name (required)
+#   url          Public URL you click - your Cloudflare / NPM hostname (required)
+#   check        Internal URL the hub pings for status, e.g. http://192.168.1.10:8096
+#                (defaults to `url`; `false` disables). Use LAN/Docker addresses so checks
+#                skip Cloudflare Access, which would otherwise answer for a dead app.
+#   icon         Emoji, or an image URL (e.g. https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg)
+#   description  One-line blurb
+#   via          cloudflare | npm | tunnel | lan   (shown as a badge)
+#   insecure     true to skip TLS verification on the status check (self-signed certs)
+#   tags         Free-form list, used by search
+
+title: MisterMiggles Hub
+subtitle: Everything running on the server, in one place.
+
+categories:
+  - name: Media
+    icon: "🎬"
+    services:
+      - name: Jellyfin
+        url: https://jellyfin.example.com
+        check: http://192.168.1.10:8096/health
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyfin.svg
+        description: Movies, TV and music streaming
+        via: cloudflare
+        tags: [movies, tv, streaming]
+      - name: Sonarr
+        url: https://sonarr.example.com
+        check: http://192.168.1.10:8989
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/sonarr.svg
+        description: TV show automation
+        via: npm
+      - name: Radarr
+        url: https://radarr.example.com
+        check: http://192.168.1.10:7878
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/radarr.svg
+        description: Movie automation
+        via: npm
+      - name: Jellyseerr
+        url: https://requests.example.com
+        check: http://192.168.1.10:5055
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/jellyseerr.svg
+        description: Media requests
+        via: cloudflare
+
+  - name: Security
+    icon: "🛡️"
+    services:
+      - name: Frigate
+        url: https://nvr.example.com
+        check: http://192.168.1.20:5000
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/frigate.svg
+        description: Cameras and object detection
+        via: npm
+      - name: Vaultwarden
+        url: https://vault.example.com
+        check: http://192.168.1.10:8081
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/vaultwarden.svg
+        description: Password manager
+        via: cloudflare
+      - name: AdGuard Home
+        url: https://dns.example.com
+        check: http://192.168.1.2:3000
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/adguard-home.svg
+        description: Network-wide ad and tracker blocking
+        via: lan
+
+  - name: Home Automation
+    icon: "🏠"
+    services:
+      - name: Home Assistant
+        url: https://home.example.com
+        check: http://192.168.1.30:8123
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/home-assistant.svg
+        description: Lights, sensors and automations
+        via: cloudflare
+      - name: Node-RED
+        url: https://flows.example.com
+        check: http://192.168.1.30:1880
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/node-red.svg
+        description: Automation flows
+        via: npm
+
+  - name: Apps
+    icon: "🧩"
+    services:
+      - name: Nextcloud
+        url: https://cloud.example.com
+        check: http://192.168.1.10:8080/status.php
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/nextcloud.svg
+        description: Files, calendar and contacts
+        via: cloudflare
+      - name: Immich
+        url: https://photos.example.com
+        check: http://192.168.1.10:2283
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/immich.svg
+        description: Photo backup
+        via: cloudflare
+
+  - name: Infrastructure
+    icon: "🛠️"
+    services:
+      - name: Nginx Proxy Manager
+        url: https://npm.example.com
+        check: http://192.168.1.10:81
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/nginx-proxy-manager.svg
+        description: Proxies and Let's Encrypt certificates
+        via: lan
+      - name: Portainer
+        url: https://portainer.example.com
+        check: https://192.168.1.10:9443
+        insecure: true
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/portainer.svg
+        description: Docker containers
+        via: npm
+      - name: Cloudflare
+        url: https://dash.cloudflare.com
+        check: false            # external link, no status dot
+        icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/cloudflare.svg
+        description: DNS, tunnels and Zero Trust
+        via: cloudflare

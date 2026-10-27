@@ -1,0 +1,22 @@
+services:
+  hub:
+    build: .
+    container_name: mistermiggles-hub
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # Edit services.yaml on the host; changes apply on page refresh.
+      - ./config/services.yaml:/app/config/services.yaml:ro
+    # No published port: Nginx Proxy Manager reaches the hub over the shared
+    # Docker network as http://mistermiggles-hub:3000.
+    # Uncomment to also reach it directly on the LAN:
+    # ports:
+    #   - "3000:3000"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    # The network your NPM container is on. Find it with: docker network ls
+    external: true
+    name: ${PROXY_NETWORK:-npm_default}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>MisterMiggles Hub</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <img src="favicon.svg" alt="" width="36" height="36" />
+      <div>
+        <h1 id="title">Hub</h1>
+        <p id="subtitle" class="muted"></p>
+      </div>
+    </div>
+    <div class="top-right">
+      <div class="summary" id="summary" aria-live="polite"></div>
+      <time id="clock" class="muted"></time>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4a6 6 0 1 0 3.9 10.6l4.7 4.7 1.4-1.4-4.7-4.7A6 6 0 0 0 10 4Zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>
+      <input id="search" type="search" placeholder="Search services…  ( / )" autocomplete="off" />
+    </label>
+    <nav id="filters" class="filters" aria-label="Categories"></nav>
+  </div>
+
+  <main id="grid"></main>
+
+  <button id="agent-fab" class="fab" hidden aria-controls="agent" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a2 2 0 0 1 2 2v1h3a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-3l-4 3v-3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h3V4a2 2 0 0 1 2-2Zm-3 9a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>
+    <span>Ask Miggles</span>
+  </button>
+
+  <aside id="agent" class="agent" hidden aria-label="AI agent">
+    <header>
+      <div>
+        <strong>Miggles</strong>
+        <span class="muted small">server agent</span>
+      </div>
+      <div class="agent-actions">
+        <button id="agent-reset" class="ghost" title="New conversation">New</button>
+        <button id="agent-close" class="ghost" aria-label="Close">✕</button>
+      </div>
+    </header>
+    <div id="agent-log" class="agent-log">
+      <div class="msg bot">Hi! I can check which services are up, look up where things live, and read the server's load and disk. Try one of these:</div>
+      <div class="chips">
+        <button class="chip">Is everything up?</button>
+        <button class="chip">How's the server doing?</button>
+        <button class="chip">What's routed through Cloudflare?</button>
+      </div>
+    </div>
+    <form id="agent-form" class="agent-form">
+      <textarea id="agent-input" rows="1" placeholder="Message Miggles…" required></textarea>
+      <button type="submit" aria-label="Send">➤</button>
+    </form>
+  </aside>
+
+  <template id="card-tpl">
+    <a class="card" target="_blank" rel="noopener">
+      <span class="dot" title="Checking…"></span>
+      <div class="icon"></div>
+      <div class="body">
+        <div class="name"></div>
+        <div class="desc muted"></div>
+      </div>
+      <div class="meta">
+        <span class="via"></span>
+        <span class="latency muted"></span>
+      </div>
+    </a>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
